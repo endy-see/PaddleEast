@@ -83,9 +83,10 @@ class RCNN(object):
         # Fast RCNN loss
         loss_cls, loss_bbox = self.fast_rcnn_loss()
 
-        losses = [rpn_cls_loss, rpn_reg_loss, loss_cls, loss_bbox]
-        rkeys = ['loss', 'loss_rpn_cls', 'loss_rpn_bbox', 'loss_cls', 'loss_bbox']
-
+        #losses = [rpn_cls_loss, rpn_reg_loss, loss_cls, loss_bbox]
+        #rkeys = ['loss', 'loss_rpn_cls', 'loss_rpn_bbox', 'loss_cls', 'loss_bbox']
+        losses = [loss_cls, loss_bbox, rpn_cls_loss, rpn_reg_loss]
+        rkeys = ['loss', 'loss_cls', 'loss_bbox', 'loss_rpn_cls', 'loss_rpn_bbox']
         loss = fluid.layers.sum(losses)
         rloss = [loss] + losses
         return rloss, rkeys
